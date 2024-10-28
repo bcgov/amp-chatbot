@@ -1,0 +1,8 @@
+# Development Requirements
+-r ../requirements.txt
+--editable ./
+pytest>=7.0.1
+pytest-cov>=3.0.0
+pycodestyle>=2.8.0
+pylint>=2.12.2
+bandit>=1.7.4

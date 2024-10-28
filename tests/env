@@ -1,0 +1,10 @@
+#!/bin/bash
+# Setup the virtual environment with the test harness
+
+if [[ -n "$WINDIR" ]]; then
+    BINDIR="env/Scripts"
+else
+    BINDIR="env/bin"
+fi
+
+"$BINDIR/python" -m pip install --upgrade --force-reinstall -r tests/requirements.txt

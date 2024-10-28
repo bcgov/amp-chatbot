@@ -1,0 +1,21 @@
+# Python project
+# Azure DevOps CI/CD stages
+
+trigger:
+  branches:
+    include:
+    - '*'
+  paths:
+    exclude:
+    - LICENSE
+    - README.md
+    - tests/README.md
+
+resources:
+  repositories:
+    - repository: Azure-Pipelines
+      type: git
+      name: python-CI-templates/python-CI-templates
+
+stages:
+  - template: azure-pipelines.yml@Azure-Pipelines

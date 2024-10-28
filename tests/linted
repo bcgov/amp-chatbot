@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+if ! [[ -d "env" ]]; then
+    ./setup.sh
+fi
+
+if [[ -n "$WINDIR" ]]; then
+    BINDIR="env/Scripts"
+else
+    BINDIR="env/bin"
+fi
+
+# Setup dev dependencies if necessary
+"$BINDIR/python" -m bandit --version || ./tests/env
+
+
+"$BINDIR/python" -m bandit -x ./env --silent -r ./
+
+"$BINDIR/python" -m pycodestyle --config=./setup.cfg --exclude=./env ./
+
+find . -type f -not -path "./env/*" -name "*.py" | xargs "$BINDIR/python" -m pylint \
+    --rcfile=./setup.cfg \
+    --msg-template="{line},{column},{category},{symbol}:{msg}" \
+    --disable=fixme \
+    --reports=n \
+    --output-format=text
